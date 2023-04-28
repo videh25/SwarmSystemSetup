@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="world" default="worlds/empty.world"/>
+  <arg name="gui" default="true"/>
+  <arg name="args" default=""/>
+  
+  <param name="/use_sim_time" value="true" />
+
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" args="$(arg world) $(arg args)" respawn="false" output="screen"/>
+  
+    <!-- start gui -->
+  <group if="$(arg gui)">
+    <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  </group>
+
+
+
+  <!-- Spawn simulated quadrotor uav -->
+  <rosparam file="$(find multibot_simulations)/config/bots_data.yaml" command="load" />
+  <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor_with_downward_cam.launch" />
+
+
+  <node pkg="multibot_simulations" type="simulation_bot_spawner.py" name="BotsSpawner" />
+  <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(find multibot_experiments)/config/rviz/drone_camera.rviz" required="true"/> -->
+  <node name="ArucoLocalization" pkg="multibot_experiments" type="aruco_localization.py" required="true">
+    <param name="drone_camera" value="downward_cam/camera"/>
+    <param name="camera_frame_name" value="drone"/>
+  </node>
+  <!-- <node pkg="multibot_experiments" type="drone_controller.py" name="DroneController" required="true"/> -->
+
+</launch>

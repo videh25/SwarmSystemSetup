@@ -1,0 +1,59 @@
+experiment_bots:
+  tb3_0:
+    aruco_value: 0
+    model: burger
+    spawn_pose:
+      x: 0.4
+      y: 1.0
+      yaw: 3.14
+  tb3_1:
+    aruco_value: 1
+    model: burger
+    spawn_pose:
+      x: -1.0
+      y: 1.0
+      yaw: 1.57
+  tb3_2:
+    aruco_value: 2
+    model: burger
+    spawn_pose:
+      x: 1.0
+      y: -1.0
+      yaw: -1.57
+
+# experiment_bots:
+  # turtle0:
+    # aruco_value: 5
+    # model: burger
+    # spawn_pose:
+      # x: 1.0
+      # y: 1.0
+      # yaw: 3.14
+  # turtle1:
+    # aruco_value: 5
+    # model: waffle_pi
+    # spawn_pose:
+      # x: -1.0
+      # y: 1.0
+      # yaw: 1.57
+  # turtle2:
+    # aruco_value: 5
+    # model: burger
+    # spawn_pose:
+      # x: 1.0
+      # y: -1.0
+      # yaw: -1.57
+  # turtle3:
+    # aruco_value: 5
+    # model: burger
+    # spawn_pose:
+      # x: -1.0
+      # y: -1.0
+      # yaw: 2.43
+  # turtle4:
+    # aruco_value: 5
+    # model: burger
+    # spawn_pose:
+      # x: 2.0
+      # y: 1.0
+      # yaw: 0.38 

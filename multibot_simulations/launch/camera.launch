@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="camera_height" default="3.0"/>
+    <arg name="rvizconfig" default="$(find multibot_experiments)/config/rviz/aruco_tf.rviz"/>
+    <rosparam file="$(find multibot_simulations)/config/bots_data.yaml" command="load" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="false"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include> 
+
+    <node pkg="multibot_simulations" type="simulation_bot_spawner.py" name="BotsSpawner" />
+    <node name="camera_spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model camera -z $(arg camera_height) -R 3.14 -Y -1.57 -file $(find multibot_simulations)/urdf/camera_gazebo.urdf" />
+    <node name="rviz" pkg="rviz" args="-d $(arg rvizconfig)" type="rviz" required="true"/>
+    <node name="ArucoLocalization" pkg="multibot_experiments" type="aruco_localization.py" required="true">
+        <param name="drone_camera" value="camera"/>
+        <param name="camera_frame_name" value="fixed_cam"/>
+    </node>
+</launch>
